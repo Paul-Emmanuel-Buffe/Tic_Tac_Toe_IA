@@ -1,15 +1,16 @@
-# Morpion avec IA
+# Tic Tac Toe with AI
 
-Bienvenue dans le projet Morpion avec IA ! Ce projet est une implémentation simple du jeu de morpion où vous pouvez jouer contre une IA basique.
+Welcome to the Tic Tac Toe with AI project! This project is a simple implementation of the Tic Tac Toe game where you can play against a basic AI.
 
-## Fonctionnalités
+## Features
 
-- Jouez contre une IA qui tente de gagner ou de bloquer vos tentatives de victoire.
-- Affichage clair de la grille de jeu en console.
-- Messages d'instructions pour une expérience de jeu optimale.
+- Play against an AI that tries to win or block your winning attempts.
+- Clear display of the game grid in the console.
+- Instructional messages for an optimal gaming experience.
 
-## Comment jouer
+## How to Play
 
-1. Clonez ce dépôt sur votre machine locale :
+1. Clone this repository to your local machine:
    ```bash
    git clone https://github.com/Paul-Emmanuel-Buffe/Tic_Tac_Toe_IA.git
+
