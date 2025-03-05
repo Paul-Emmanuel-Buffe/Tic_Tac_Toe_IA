@@ -1,4 +1,3 @@
-# Fonction de recherche d'index
 def index_case_selectionnee(valeur, matrice):
     for x, ligne in enumerate(matrice):
         for y, element in enumerate(ligne):
@@ -6,20 +5,19 @@ def index_case_selectionnee(valeur, matrice):
                 return (x, y)
     return None
 
-# Fonction pour afficher la grille
 def afficher_grille(myDico):
     print("\nGrille de jeu :")
+    print("-----")
     for ligne in myDico:
         print("|".join(ligne))
-        print("-" * 5)
+        print("-----")
 
-# Fonction pour les tours de jeu
 def tour(joueur, symbole, myDico, liste):
     while True:
-        choix_case = input(f"\n{joueur}, donnez un numéro de case (1-9) : ")
+        choix_case = input(f"\n{joueur} (Symbole: {symbole}), choisissez un numéro de case (1-9) : ")
 
         if choix_case not in liste:
-            print("La valeur renseignée n'est pas valide, essayez à nouveau.")
+            print("La valeur renseignée n'est pas valide ou la case est déjà prise. Essayez à nouveau.")
             continue
 
         clef, valeur = index_case_selectionnee(choix_case, myDico)
@@ -31,7 +29,6 @@ def tour(joueur, symbole, myDico, liste):
     afficher_grille(myDico)
     return choix_victoire(joueur, myDico)
 
-# Fonction déterminant les conditions de victoire
 def choix_victoire(joueur, myDico):
     for ligne in myDico:
         if ligne[0] == ligne[1] == ligne[2] and ligne[0] != " ":
@@ -49,11 +46,11 @@ def choix_victoire(joueur, myDico):
 
     return False
 
-# Fonction de jeu
 def morpion():
     myDico = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
     liste = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
+    print("\nBienvenue au jeu de Morpion !")
     afficher_grille(myDico)
 
     while True:
@@ -65,10 +62,9 @@ def morpion():
             print("\nMatch nul !")
             break
 
-# Boucle de redémarrage
 while True:
     morpion()
-    relancer_partie = input("\nNouvelle partie ? (O/N) : ")
+    relancer_partie = input("\nVoulez-vous jouer une nouvelle partie ? (O/N) : ")
     if relancer_partie.upper() == "N":
         print("À bientôt !")
         break
