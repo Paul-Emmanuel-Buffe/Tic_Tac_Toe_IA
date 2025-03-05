@@ -1,3 +1,5 @@
+import random
+
 def index_case_selectionnee(valeur, matrice):
     for x, ligne in enumerate(matrice):
         for y, element in enumerate(ligne):
@@ -12,7 +14,7 @@ def afficher_grille(myDico):
         print("|".join(ligne))
         print("-----")
 
-def tour(joueur, symbole, myDico, liste):
+def tour_joueur(joueur, symbole, myDico, liste):
     while True:
         choix_case = input(f"\n{joueur} (Symbole: {symbole}), choisissez un numéro de case (1-9) : ")
 
@@ -28,6 +30,39 @@ def tour(joueur, symbole, myDico, liste):
 
     afficher_grille(myDico)
     return choix_victoire(joueur, myDico)
+
+def tour_ia(symbole, myDico, liste):
+    print("\nTour de l'IA...")
+
+    # Vérifier si l'IA peut gagner au prochain tour
+    for case in liste:
+        clef, valeur = index_case_selectionnee(case, myDico)
+        myDico[clef][valeur] = symbole
+        if choix_victoire("IA", myDico):
+            liste.remove(case)
+            return True
+        myDico[clef][valeur] = case  # Remettre la case à sa valeur initiale
+
+    # Bloquer le joueur s'il peut gagner au prochain tour
+    joueur_symbole = "X" if symbole == "O" else "O"
+    for case in liste:
+        clef, valeur = index_case_selectionnee(case, myDico)
+        myDico[clef][valeur] = joueur_symbole
+        if choix_victoire("Joueur 1", myDico):
+            myDico[clef][valeur] = symbole
+            liste.remove(case)
+            afficher_grille(myDico)
+            return choix_victoire("IA", myDico)
+        myDico[clef][valeur] = case  # Remettre la case à sa valeur initiale
+
+    # Sinon, choisir une case aléatoire
+    choix_case = random.choice(liste)
+    clef, valeur = index_case_selectionnee(choix_case, myDico)
+    myDico[clef][valeur] = symbole
+    liste.remove(choix_case)
+
+    afficher_grille(myDico)
+    return choix_victoire("IA", myDico)
 
 def choix_victoire(joueur, myDico):
     for ligne in myDico:
@@ -50,13 +85,13 @@ def morpion():
     myDico = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
     liste = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
-    print("\nBienvenue au jeu de Morpion !")
+    print("\nBienvenue au jeu de Morpion contre l'IA !")
     afficher_grille(myDico)
 
     while True:
-        if tour("Joueur 1", "X", myDico, liste):
+        if tour_joueur("Joueur 1", "X", myDico, liste):
             break
-        if tour("Joueur 2", "O", myDico, liste):
+        if tour_ia("O", myDico, liste):
             break
         if not liste:
             print("\nMatch nul !")
